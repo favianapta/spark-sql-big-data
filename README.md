@@ -11,14 +11,14 @@
       <ul>
         <li><a href="#membuat-dataframes">Membuat DataFrames</a></li>
         <li><a href="#kode-1">Kode 1</a></li>
-        <li><a href="#metode-1-membuat-dataframe-dengan-objek-list">Metode 1: Membuat DataFrame dengan objek list, schema dan default data types</a></li>
+        <li><a href="#metode-1-:-membuat-dataframe-dengan-objek-list-schema dan-default-data-types">Metode 1: Membuat DataFrame dengan objek list, schema dan default data types</a></li>
         <li><a href="#kode-2">Kode 2</a></li>
-        <li><a href="#metode-2-membuat-dataframe-dengan-parallelizing-list">Metode 2: Membuat DataFrame dengan parallelizing list dan konversi RDD ke DataFrame</a></li>
+        <li><a href="#metode-2-:-membuat-dataframe-dengan-parallelizing-list-dan-konversi-rdd-ke-dataframe">Metode 2: Membuat DataFrame dengan parallelizing list dan konversi RDD ke DataFrame</a></li>
         <li><a href="#kode-3">Kode 3</a></li>
-        <li><a href="#metode-3-read-data-from-a-file">Metode 3: Read data from a file, Infer schema and convert to DataFrame</a></li>
+        <li><a href="#metode-3-:-read-data-from-a-file-infer-schema-and-convert-to-dataframe">Metode 3: Read data from a file, Infer schema and convert to DataFrame</a></li>
         <li><a href="#kode-4">Kode 4</a></li>
         <li><a href="#kode-5">Kode 5</a></li>
-        <li><a href="#metode-4-membaca-data-dari-file">Metode 4: Membaca data dari file, lalu assign schema secara programmatically</a></li>
+        <li><a href="#metode-4-:-membaca-data-dari-file-lalu-assign-schema-secara-programmatically">Metode 4: Membaca data dari file, lalu assign schema secara programmatically</a></li>
         <li><a href="#kode-6">Kode 6</a></li>
       </ul>
     </li>
@@ -84,8 +84,11 @@
 <!-- Analitik dengan DataFrames -->
 # Analitik dengan DataFrames
   ## Membuat DataFrames
+  
+  <img src="images/Kode-1.png" width="60%" height="60%">
+  
   > ### Kode 1
-
+      
       mylist = [(50, "DataFrame"),(60, "pandas")]
       myschema = ['col1', 'col2']
       
@@ -97,6 +100,9 @@
         > sebuah objek list dalam bahasa pemrograman Python yang berisi dua elemen berupa string. Elemen dalam _myschema_ mewakili nama kolom dalam sebuah tabel atau dataframe.
         
   ## Metode 1: Membuat DataFrame dengan objek list, schema dan default data types
+  
+  <img src="images/Kode-2.png" width="60%" height="60%">
+  
   > ### Kode 2
 
       df1 = spark.createDataFrame(mylist, myschema)
@@ -107,6 +113,9 @@
         > sebuah fungsi dalam framework Apache Spark yang digunakan untuk membuat sebuah DataFrame baru dari data yang ada.
 
   ## Metode 2: Membuat DataFrame dengan parallelizing list dan konversi RDD ke DataFrame
+  
+  <img src="images/Kode-3.png" width="60%" height="60%">
+  
   > ### Kode 3
 
       df2 = sc.parallelize(mylist).toDF(myschema)
@@ -119,6 +128,9 @@
         > membuat DataFrame baru dari RDD, digunakan untuk membuat DataFrame baru dengan kolom-kolom yang disesuaikan
 
   ## Metode 3: Read data from a file, Infer schema and convert to DataFrame
+  
+  <img src="images/Kode-4.png" width="60%" height="60%">
+  
   > ### Kode 4
 
       hadoop fs -put /examples/resources/people.txt people.txt
@@ -132,7 +144,9 @@
         
      - put <br>
         > adalah opsi pada command fs yang digunakan untuk mengunggah sebuah file dari sistem lokal ke HDFS.
-        
+  
+  <img src="images/Kode-5.png" width="60%" height="60%">
+  
   > ### Kode 5
 
       from pyspark.sql import SQLContext, Row
@@ -158,6 +172,9 @@
         > sebuah method pada objek DataFrame yang digunakan untuk menampilkan isi DataFrame dalam bentuk tabel.
         
   ## Metode 4: Membaca data dari file, lalu assign schema secara programmatically
+  
+  <img src="images/Kode-6.png" width="60%" height="60%">
+  
   > ### Kode 6
 
       from pyspark.sql import SQLContext, Row
@@ -200,6 +217,9 @@
 <!-- Membuat DataFrame dari Database Eksternal-->
 # Membuat DataFrame dari Database Eksternal
   ## Metode 3-1
+  
+  <img src="images/Kode-7.png" width="60%" height="60%">
+  
   > ### Kode 7
   
       df1 = spark.read.format('jdbc').options(url='jdbc:mysql://ebt-polinema.id:3306/polinema_pln?user=ebt&password=EBT@2022@pltb', dbtable='t_wind_turbine').load()
@@ -219,6 +239,9 @@
         > method yang digunakan untuk membaca data dari sumber data dan mengembalikan sebuah DataFrame.
 
   ## Metode 3-2
+  
+  <img src="images/Kode-8.png" width="60%" height="60%">
+  
   > ### Kode 8
 
       df2 = spark.read.format('jdbc').options(url='jdbc:mysql://ebt-polinema.id:3306/polinema_pln', dbtable='t_wind_turbine', user='ebt', password='EBT@2022@pltb').load()
@@ -233,6 +256,9 @@
 
 <!-- Mengonversi DataFrames ke RDDs -->
 # Mengonversi DataFrames ke RDDs
+
+  <img src="images/Kode-9.png" width="60%" height="60%">
+  
   > ### Kode 9
 
       # Create DataFrame
@@ -261,6 +287,9 @@
 
 <!-- Membuat Datasets -->
 # Membuat Datasets
+  
+  <img src="images/Kode-10.png" width="60%" height="60%">
+  
   > ### Kode 10
 
       case class Dept(dept_id: Int, dept_name: String)
@@ -280,7 +309,9 @@
         
      - createDataset <br>
         > digunakan untuk membuat sebuah dataset pada Spark. Dataset adalah sebuah struktur data yang dapat merepresentasikan data terstruktur pada Spark. Fungsi createDataset digunakan untuk membuat sebuah dataset dari RDD yang ada.
-
+  
+  <img src="images/Kode-11.png" width="60%" height="60%">
+  
   > ### Kode 11
   
       deptDS.rdd
@@ -303,6 +334,9 @@
 
 <!-- Mengonversi DataFrame ke Datasets dan sebaliknya -->
 # Mengonversi DataFrame ke Datasets dan sebaliknya
+  
+  <img src="images/Kode-12.png" width="60%" height="60%">
+  
   > ### Kode 12
   
       val newDeptDS = deptDF.as[Dept]
@@ -329,6 +363,9 @@
 
 <!-- Mengakses Metadata menggunakan Catalog -->
 # Mengakses Metadata menggunakan Catalog
+  
+  <img src="images/Kode-13.png" width="60%" height="60%">
+  
   > ### Kode 13
 
       spark.catalog.listDatabases().select("name").show()
@@ -360,6 +397,9 @@
 
 <!-- Bekerja dengan berkas teks -->
 # Bekerja dengan berkas teks
+  
+  <img src="images/Kode-14.png" width="60%" height="60%">
+  
   > ### Kode 14
 
       df_txt = spark.read.text("people.txt")
@@ -379,6 +419,9 @@
 
 <!-- Bekerja dengan JSON -->
 # Bekerja dengan JSON
+  
+  <img src="images/Kode-15.png" width="60%" height="60%">
+  
   > ### Kode 15
 
       df_json = spark.read.load("people.json", format="json")
@@ -400,6 +443,8 @@
      - printSchema <br>
         > digunakan untuk menampilkan skema dari data frame. Skema menunjukkan struktur dari data, termasuk kolom, tipe data kolom, dan informasi lain yang berkaitan dengan skema data.
 
+  <img src="images/Kode-16.png" width="60%" height="60%">
+  
   > ### Kode 16
   
       df_json.write.json("newjson_dir")
@@ -412,6 +457,9 @@
      - save <br>
         > untuk menyimpan DataFrame ke sebuah lokasi tertentu, dengan format file tertentu
 
+  
+  <img src="images/Kode-17.png" width="60%" height="60%">
+  
   > ### Kode 17
 
       df_json.write.parquet("parquet_dir")
@@ -426,6 +474,9 @@
 
 <!-- Bekerja dengan CSV -->
 # Bekerja dengan CSV
+  
+  <img src="images/Kode-18.png" width="60%" height="60%">
+  
   > ### Kode 18
 
       csv_df = spark.read.options(header='true',inferSchema='true').csv("cars.csv")
