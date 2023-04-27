@@ -89,8 +89,8 @@
   
   > ### Kode 1
       
-      mylist = [(50, "DataFrame"),(60, "pandas")]
-      myschema = ['col1', 'col2']
+    mylist = [(50, "DataFrame"),(60, "pandas")]
+    myschema = ['col1', 'col2']
       
    + Penjelasan
      - mylist <br>
@@ -105,7 +105,7 @@
   
   > ### Kode 2
 
-      df1 = spark.createDataFrame(mylist, myschema)
+    df1 = spark.createDataFrame(mylist, myschema)
 
    + Penjelasan
      - spark.createDataFrame <br>
@@ -118,7 +118,7 @@
   
   > ### Kode 3
 
-      df2 = sc.parallelize(mylist).toDF(myschema)
+    df2 = sc.parallelize(mylist).toDF(myschema)
 
    + Penjelasan
      - parallelize <br>
@@ -133,7 +133,7 @@
   
   > ### Kode 4
 
-      hadoop fs -put /examples/resources/people.txt people.txt
+    hadoop fs -put /examples/resources/people.txt people.txt
       
    + Penjelasan
      - hadoop <br>
@@ -149,14 +149,14 @@
   
   > ### Kode 5
 
-      from pyspark.sql import SQLContext, Row
-      peopleRDD = sc.textFile("people.txt")
-      people_sp = peopleRDD.map(lambda l: l.split(","))
-      people = people_sp.map(lambda p: Row(name=p[0], age=int(p[1])))
-      df_people = spark.createDataFrame(people)
-      df_people.createOrReplaceTempView("people")
-      spark.sql("SHOW TABLES").show()
-      spark.sql("SELECT name,age FROM people where age > 19").show()
+    from pyspark.sql import SQLContext, Row
+    peopleRDD = sc.textFile("people.txt")
+    people_sp = peopleRDD.map(lambda l: l.split(","))
+    people = people_sp.map(lambda p: Row(name=p[0], age=int(p[1])))
+    df_people = spark.createDataFrame(people)
+    df_people.createOrReplaceTempView("people")
+    spark.sql("SHOW TABLES").show()
+    spark.sql("SELECT name,age FROM people where age > 19").show()
 
    + Penjelasan
      - pyspark.sql <br>
@@ -177,19 +177,19 @@
   
   > ### Kode 6
 
-      from pyspark.sql import SQLContext, Row
-      peopleRDD = sc.textFile("people.txt")
-      people_sp = peopleRDD.map(lambda l: l.split(","))
-      people = people_sp.map(lambda p: Row(name=p[0], age=int(p[1])))
-      df_people = people_sp.map(lambda p: (p[0], p[1].strip()))
-      schemaStr = "name age"
-      fields = [StructField(field_name, StringType(), True) \
-      for field_name in schemaStr.split()]
-      schema = StructType(fields)
-      df_people = spark.createDataFrame(people,schema)
-      df_people.show()
-      df_people.createOrReplaceTempView("people")
-      spark.sql("select * from people").show() 
+    from pyspark.sql import SQLContext, Row
+    peopleRDD = sc.textFile("people.txt")
+    people_sp = peopleRDD.map(lambda l: l.split(","))
+    people = people_sp.map(lambda p: Row(name=p[0], age=int(p[1])))
+    df_people = people_sp.map(lambda p: (p[0], p[1].strip()))
+    schemaStr = "name age"
+    fields = [StructField(field_name, StringType(), True) \
+    for field_name in schemaStr.split()]
+    schema = StructType(fields)
+    df_people = spark.createDataFrame(people,schema)
+    df_people.show()
+    df_people.createOrReplaceTempView("people")
+    spark.sql("select * from people").show() 
 
    + Penjelasan
      - textFile <br>
@@ -222,8 +222,8 @@
   
   > ### Kode 7
   
-      df1 = spark.read.format('jdbc').options(url='jdbc:mysql://ebt-polinema.id:3306/polinema_pln?user=ebt&password=EBT@2022@pltb', dbtable='t_wind_turbine').load()
-      df1.show()
+    df1 = spark.read.format('jdbc').options(url='jdbc:mysql://ebt-polinema.id:3306/polinema_pln?user=ebt&password=EBT@2022@pltb', dbtable='t_wind_turbine').load()
+    df1.show()
 
    + Penjelasan
      - spark.read.format <br>
@@ -244,8 +244,8 @@
   
   > ### Kode 8
 
-      df2 = spark.read.format('jdbc').options(url='jdbc:mysql://ebt-polinema.id:3306/polinema_pln', dbtable='t_wind_turbine', user='ebt', password='EBT@2022@pltb').load()
-      df2.show()
+    df2 = spark.read.format('jdbc').options(url='jdbc:mysql://ebt-polinema.id:3306/polinema_pln', dbtable='t_wind_turbine', user='ebt', password='EBT@2022@pltb').load()
+    df2.show()
 
    + Penjelasan
      - show <br>
@@ -261,16 +261,16 @@
   
   > ### Kode 9
 
-      # Create DataFrame
-      mylist = [(1, "Nama-NIM"),(3, "Big Data 2023")]
-      myschema = ['col1', 'col2']
-      df = spark.createDataFrame(mylist, myschema)
+    # Create DataFrame
+    mylist = [(1, "Nama-NIM"),(3, "Big Data 2023")]
+    myschema = ['col1', 'col2']
+    df = spark.createDataFrame(mylist, myschema)
 
-      #Convert DF to RDD
-      df.rdd.collect()
+    #Convert DF to RDD
+    df.rdd.collect()
 
-      df2rdd = df.rdd
-      df2rdd.take(2)
+    df2rdd = df.rdd
+    df2rdd.take(2)
 
    + Penjelasan
      - collect <br>
@@ -292,13 +292,13 @@
   
   > ### Kode 10
 
-      case class Dept(dept_id: Int, dept_name: String)
+    case class Dept(dept_id: Int, dept_name: String)
       
-      val deptRDD = sc.makeRDD(Seq(Dept(1,"Sales"),Dept(2,"HR")))
+    val deptRDD = sc.makeRDD(Seq(Dept(1,"Sales"),Dept(2,"HR")))
       
-      val deptDS = spark.createDataset(deptRDD)
+    val deptDS = spark.createDataset(deptRDD)
       
-      val deptDF = spark.createDataFrame(deptRDD)
+    val deptDF = spark.createDataFrame(deptRDD)
 
    + Penjelasan
      - makeRDD <br>
@@ -314,16 +314,16 @@
   
   > ### Kode 11
   
-      deptDS.rdd
+    deptDS.rdd
       
-      //res12: org.apache.spark.rdd.RDD[Dept] = MapPartitionsRDD[5] at rdd at 
-      //<console>:31
+    //res12: org.apache.spark.rdd.RDD[Dept] = MapPartitionsRDD[5] at rdd at 
+    //<console>:31
       
-      deptDF.rdd
+    deptDF.rdd
       
-      //res13: org.apache.spark.rdd.RDD[org.apache.spark.sql.Row] = //MapPartitionsRDD[8] at rdd at <console>:31
+    //res13: org.apache.spark.rdd.RDD[org.apache.spark.sql.Row] = //MapPartitionsRDD[8] at rdd at <console>:31
 
-      deptDS.filter(x => x.dept_location > 1).show()
+    deptDS.filter(x => x.dept_location > 1).show()
 
    + Penjelasan
      - filter <br>
@@ -339,14 +339,14 @@
   
   > ### Kode 12
   
-      val newDeptDS = deptDF.as[Dept]
+    val newDeptDS = deptDF.as[Dept]
       
-      newDeptDS.show()
+    newDeptDS.show()
       
-      newDeptDS.first()
+    newDeptDS.first()
       
-      // mengonversi ke DataFrame kembali
-      newDeptDS.toDF.first()
+    // mengonversi ke DataFrame kembali
+    newDeptDS.toDF.first()
 
    + Penjelasan
      - as <br>
@@ -368,13 +368,13 @@
   
   > ### Kode 13
 
-      spark.catalog.listDatabases().select("name").show()
+    spark.catalog.listDatabases().select("name").show()
       
-      spark.catalog.listTables.show()
+    spark.catalog.listTables.show()
       
-      spark.catalog.isCached("sample_07")
+    spark.catalog.isCached("sample_07")
       
-      spark.catalog.listFunctions().show()
+    spark.catalog.listFunctions().show()
 
    + Penjelasan
      - listDatabases <br>
@@ -402,9 +402,9 @@
   
   > ### Kode 14
 
-      df_txt = spark.read.text("people.txt")
-      df_txt.show()
-      df_txt
+    df_txt = spark.read.text("people.txt")
+    df_txt.show()
+    df_txt
 
    + Penjelasan
      - Read <br>
@@ -424,11 +424,11 @@
   
   > ### Kode 15
 
-      df_json = spark.read.load("people.json", format="json")
-      df_json = spark.read.json("people.json")
-      df_json.printSchema()
+    df_json = spark.read.load("people.json", format="json")
+    df_json = spark.read.json("people.json")
+    df_json.printSchema()
       
-      df_json.show()
+    df_json.show()
 
    + Penjelasan
      - load <br>
@@ -447,8 +447,8 @@
   
   > ### Kode 16
   
-      df_json.write.json("newjson_dir")
-      df_json.write.format("json").save("newjson_dir2")
+    df_json.write.json("newjson_dir")
+    df_json.write.format("json").save("newjson_dir2")
 
    + Penjelasan
      - write <br>
@@ -462,8 +462,8 @@
   
   > ### Kode 17
 
-      df_json.write.parquet("parquet_dir")
-      df_json.write.format("parquet").save("parquet_dir2")
+    df_json.write.parquet("parquet_dir")
+    df_json.write.format("parquet").save("parquet_dir2")
      
    + Penjelasan
      - parquet <br>
@@ -479,11 +479,11 @@
   
   > ### Kode 18
 
-      csv_df = spark.read.options(header='true',inferSchema='true').csv("cars.csv")
+    csv_df = spark.read.options(header='true',inferSchema='true').csv("cars.csv")
       
-      csv_df.printSchema()
+    csv_df.printSchema()
       
-      csv_df.select('year', 'model').write.options(codec="org.apache.hadoop.io.compress.GzipCodec").csv('newcars.csv')
+    csv_df.select('year', 'model').write.options(codec="org.apache.hadoop.io.compress.GzipCodec").csv('newcars.csv')
 
    + Penjelasan
      - Options <br>
